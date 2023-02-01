@@ -1,0 +1,6 @@
+pybo.db
+*.pyc
+__pycache__
+migrations
+node_modules
+package-lock.json

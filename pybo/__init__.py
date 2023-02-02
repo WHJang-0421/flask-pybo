@@ -1,4 +1,4 @@
-from flask import Flask
+from flask import Flask, render_template
 from flaskext.markdown import Markdown
 from flask_migrate import Migrate
 from flask_sqlalchemy import SQLAlchemy
@@ -13,6 +13,9 @@ naming_convention = {
 }
 db = SQLAlchemy(metadata=MetaData(naming_convention=naming_convention))
 migrate = Migrate()
+
+def page_not_found(e):
+    return render_template('404.html'), 404
 
 # application factory
 def create_app():
@@ -37,5 +40,8 @@ def create_app():
 
     # markdown
     Markdown(app, extensions=['nl2br', 'fenced_code'])
+
+    # error pages
+    app.register_error_handler(404, page_not_found)
 
     return app
